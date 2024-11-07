@@ -1,0 +1,300 @@
+show databases;
+create database student;
+use student;
+create table stud_tab(stud_id int(4),stud_name varchar(20),stud_dept varchar(10),stud_dob date,stud_address varchar(10));
+//CREATING A TABLE 
+desc stud_tab;
+//DESCRIBING THE TABLE INFO
+insert into stud_tab values(1,'Ram','Comp','2002-11-05','Pune');
+insert into stud_tab values(2,'Soham','IT','2002-09-03','Nashik');
+insert into stud_tab values(3,'Ramesh','Comp','2002-03-19','Pune');
+insert into stud_tab values(4,'Mohan','AI&DS','2002-02-22','Nagpur');
+//INSERTING THE VALUES
+select * from stud_tab;
+alter table stud_tab add shift varchar(10);
+//ADDING ANOTHER COLUMN TO THE TABLE OF NAME SHIFT
+update stud_tab set shift='first' where stud_id=1;
+update stud_tab set shift='second' where stud_id=2;
+update stud_tab set shift='first' where stud_id=3;
+//UPDATING THE VALUES OF SHIFT FROM NULL
+select * from stud_tab;
+insert into stud_tab values(5,'Omkar','ENTC','2002-06-26','Pune','second');
+//INSERTING THE ANTOTHE ROW AND ITS VALUES INTO TABLE 
+select * from stud_tab;
+delete from stud_tab where stud_address='Nagpur';
+//DELETING THE ROW WHERE THE CITY IS NAGPUR
+select * from stud_tab;
+update stud_tab set stud_id=4 where stud_name='Omkar';
+//HERE WE UPDATE THE STUD ID OF OMKAR FROM 5 TO 4
+select * from stud_tab;
+select * from stud_tab where stud_dob between '2002-01-01' and '2002-07-01';
+// SHOW THE INFORMATION WITH SPECIFIC CONDITION
+alter table stud_tab add stud_fees int(15);
+//ADDING A COLUMN IN TO THE TABLE 
+update stud_tab set stud_fees=15000 where stud_id=1;
+update stud_tab set stud_fees=20000 where stud_id=2;
+update stud_tab set stud_fees=20000 where stud_id=3;
+update stud_tab set stud_fees=15000 where stud_id=4;
+//UPDATING THE INFORMATION OF NEW COLUMN TO SOME VALUE FROM NULL
+select * from stud_tab;
+select * from stud_tab where stud_fees=(select max(stud_fees) from stud_tab);
+//SHOW THE STUDENT WHO HAS MAXIMUN FEES
+select sum(stud_fees) from stud_tab;
+//PRINT THE SUM OF FEES
+create table stud_info as select stud_id,stud_name from stud_tab;
+select stud_id from stud_tab union select stud_id from stud_info;
+
+
+
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.39 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| a1                 |
+| ass2               |
+| employee           |
+| information_schema |
+| l3                 |
+| mysql              |
+| performance_schema |
+| r1                 |
+| stud               |
+| student            |
+| sys                |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> use student;
+Database changed
+mysql> create table stud_tab(stud_id int(4),stud_name varchar(20),stud_dept varchar(10),stud_dob date,stud_address varchar(10));
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> desc stud_tab;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| stud_id      | int         | YES  |     | NULL    |       |
+| stud_name    | varchar(20) | YES  |     | NULL    |       |
+| stud_dept    | varchar(10) | YES  |     | NULL    |       |
+| stud_dob     | date        | YES  |     | NULL    |       |
+| stud_address | varchar(10) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into stud_tab values(1,"Ram","Comp","2002-11-05","Pune");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into stud_tab values(2,'Soham','IT','2002-09-03','Nashik');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into stud_tab values(3,'Ramesh','Comp','2002-03-19','Pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into stud_tab values(4,'Mohan','AI&DS','2002-02-22','Nagpur');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from stud_tab;
++---------+-----------+-----------+------------+--------------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address |
++---------+-----------+-----------+------------+--------------+
+|       1 | Ram       | Comp      | 2002-11-05 | Pune         |
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         |
+|       4 | Mohan     | AI&DS     | 2002-02-22 | Nagpur       |
++---------+-----------+-----------+------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table stud_tab add shift varchar(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from stud_tab;
++---------+-----------+-----------+------------+--------------+-------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift |
++---------+-----------+-----------+------------+--------------+-------+
+|       1 | Ram       | Comp      | 2002-11-05 | Pune         | NULL  |
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       | NULL  |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | NULL  |
+|       4 | Mohan     | AI&DS     | 2002-02-22 | Nagpur       | NULL  |
++---------+-----------+-----------+------------+--------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update stud_tab set shift='first' where stud_id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud_tab set shift='second' where stud_id=2;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud_tab set shift='first' where stud_id=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud_tab set shift='first' where stud_id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud_tab;
++---------+-----------+-----------+------------+--------------+--------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift  |
++---------+-----------+-----------+------------+--------------+--------+
+|       1 | Ram       | Comp      | 2002-11-05 | Pune         | first  |
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       | second |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | first  |
+|       4 | Mohan     | AI&DS     | 2002-02-22 | Nagpur       | first  |
++---------+-----------+-----------+------------+--------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into stud_tab values(5,"Omkar","ENTC","2002-06-26","Pune","second");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from stud_tab;
++---------+-----------+-----------+------------+--------------+--------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift  |
++---------+-----------+-----------+------------+--------------+--------+
+|       1 | Ram       | Comp      | 2002-11-05 | Pune         | first  |
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       | second |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | first  |
+|       4 | Mohan     | AI&DS     | 2002-02-22 | Nagpur       | first  |
+|       5 | Omkar     | ENTC      | 2002-06-26 | Pune         | second |
++---------+-----------+-----------+------------+--------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> delete from stud_tab where stud_address='Nagpur';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from stud_tab;
++---------+-----------+-----------+------------+--------------+--------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift  |
++---------+-----------+-----------+------------+--------------+--------+
+|       1 | Ram       | Comp      | 2002-11-05 | Pune         | first  |
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       | second |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | first  |
+|       5 | Omkar     | ENTC      | 2002-06-26 | Pune         | second |
++---------+-----------+-----------+------------+--------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update stud_tab set stud_id=4 where stud_name='Omkar';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud_tab;
++---------+-----------+-----------+------------+--------------+--------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift  |
++---------+-----------+-----------+------------+--------------+--------+
+|       1 | Ram       | Comp      | 2002-11-05 | Pune         | first  |
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       | second |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | first  |
+|       4 | Omkar     | ENTC      | 2002-06-26 | Pune         | second |
++---------+-----------+-----------+------------+--------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from stud_tab where stud_dob between '2002-01-01' and '2002-07-01';
++---------+-----------+-----------+------------+--------------+--------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift  |
++---------+-----------+-----------+------------+--------------+--------+
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | first  |
+|       4 | Omkar     | ENTC      | 2002-06-26 | Pune         | second |
++---------+-----------+-----------+------------+--------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> alter table stud_tab add stud_fees int(15);
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from stud_tab;
++---------+-----------+-----------+------------+--------------+--------+-----------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift  | stud_fees |
++---------+-----------+-----------+------------+--------------+--------+-----------+
+|       1 | Ram       | Comp      | 2002-11-05 | Pune         | first  |      NULL |
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       | second |      NULL |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | first  |      NULL |
+|       4 | Omkar     | ENTC      | 2002-06-26 | Pune         | second |      NULL |
++---------+-----------+-----------+------------+--------------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> update stud_tab set stud_fees=15000 where stud_id=1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud_tab set stud_fees=20000 where stud_id=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud_tab set stud_fees=20000 where stud_id=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update stud_tab set stud_fees=15000 where stud_id=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from stud_tab;
++---------+-----------+-----------+------------+--------------+--------+-----------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift  | stud_fees |
++---------+-----------+-----------+------------+--------------+--------+-----------+
+|       1 | Ram       | Comp      | 2002-11-05 | Pune         | first  |     15000 |
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       | second |     20000 |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | first  |     20000 |
+|       4 | Omkar     | ENTC      | 2002-06-26 | Pune         | second |     15000 |
++---------+-----------+-----------+------------+--------------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from stud_tab where stud_fees=(select max(stud_fees) from stud_tab);
++---------+-----------+-----------+------------+--------------+--------+-----------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift  | stud_fees |
++---------+-----------+-----------+------------+--------------+--------+-----------+
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       | second |     20000 |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | first  |     20000 |
++---------+-----------+-----------+------------+--------------+--------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(stud_fees) from stud_tab;
++----------------+
+| sum(stud_fees) |
++----------------+
+|          70000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> create table stud_info as select stud_id,stud_name from stud_tab;
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from stud_tab;
++---------+-----------+-----------+------------+--------------+--------+-----------+
+| stud_id | stud_name | stud_dept | stud_dob   | stud_address | shift  | stud_fees |
++---------+-----------+-----------+------------+--------------+--------+-----------+
+|       1 | Ram       | Comp      | 2002-11-05 | Pune         | first  |     15000 |
+|       2 | Soham     | IT        | 2002-09-03 | Nashik       | second |     20000 |
+|       3 | Ramesh    | Comp      | 2002-03-19 | Pune         | first  |     20000 |
+|       4 | Omkar     | ENTC      | 2002-06-26 | Pune         | second |     15000 |
++---------+-----------+-----------+------------+--------------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select stud_id from stud_tab union select stud_id from stud_info;
++---------+
+| stud_id |
++---------+
+|       1 |
+|       2 |
+|       3 |
+|       4 |
++---------+
+4 rows in set (0.00 sec)
+
+mysql>

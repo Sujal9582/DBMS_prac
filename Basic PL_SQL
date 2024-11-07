@@ -1,0 +1,228 @@
+create database library;
+
+use library;
+
+create table Borrower(Rollno int(4),Name varchar(20),DateofIssue date,NameofBook varchar(30),Status varchar(10));
+
+insert into Borrower values(14,'Ram','2022-09-19','Operating System','I');
+
+insert into Borrower values(27,'Soham','2022-07-24','Object Oriented Programming','I');
+
+insert into Borrower values(34,'Mohan','2022-06-12','Microprocessor','I');
+
+insert into Borrower values(48,'Om','2022-04-19','Mechanics','I');
+
+select * from Borrower;
+
+create table Fine(Rollno int(4),Date date,Amount int(10));
+
+delimiter //
+create procedure calc_Fine(in r int(10),in b varchar(30))
+begin
+declare doi date;
+declare diff int(3);
+select DateofIssue into doi from Borrower where Rollno=r and NameofBook=b;
+select datediff(curdate(),doi) into diff;
+if diff>=15 and diff<=30 then
+insert into Fine values(r,curdate(),diff*5);
+end if;
+if diff>30 then
+insert into Fine values(r,curdate(),diff*50);
+end if;
+end//
+
+delimiter //
+create procedure submit(in r int(2))
+begin
+update Borrower set Status='R' where Rollno=r;
+delete from Fine where Rollno=r;
+end//
+
+call calc_Fine(14,'Operating System'); //
+
+select * from Fine; //
+
+call calc_Fine(27,'Object Oriented Programming');// 
+
+call calc_Fine(34,'Microprocessor'); //
+
+call calc_Fine(48,'Mechanics'); //
+
+select * from Fine; //
+
+call submit(14); //
+
+call submit(27); //
+
+call submit(48); //
+
+call submit(34); //
+
+select * from Fine;// 
+
+select * from Borrower;// 
+
+
+------------------------------------*******************-----------------------------------------
+
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 32
+Server version: 8.0.39 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| ass2               |
+| costomer           |
+| employee           |
+| information_schema |
+| jdbc               |
+| l3                 |
+| lib                |
+| mysql              |
+| performance_schema |
+| pl                 |
+| r1                 |
+| rahul              |
+| stud               |
+| student            |
+| sys                |
++--------------------+
+15 rows in set (0.00 sec)
+
+mysql> drop database rahul;
+Query OK, 2 rows affected (0.04 sec)
+
+mysql> create database library;
+Query OK, 1 row affected (0.02 sec)
+
+mysql>
+mysql> use library;
+Database changed
+mysql> create table Borrower(Rollno int(4),Name varchar(20),DateofIssue date,NameofBook varchar(30),Status varchar(10));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> insert into Borrower values(14,'Ram','2022-09-19','Operating System','I');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into Borrower values(27,'Soham','2022-07-24','Object Oriented Programming','I');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Borrower values(34,'Mohan','2022-06-12','Microprocessor','I');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Borrower values(48,'Om','2022-04-19','Mechanics','I');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Borrower;
++--------+-------+-------------+-----------------------------+--------+
+| Rollno | Name  | DateofIssue | NameofBook                  | Status |
++--------+-------+-------------+-----------------------------+--------+
+|     14 | Ram   | 2022-09-19  | Operating System            | I      |
+|     27 | Soham | 2022-07-24  | Object Oriented Programming | I      |
+|     34 | Mohan | 2022-06-12  | Microprocessor              | I      |
+|     48 | Om    | 2022-04-19  | Mechanics                   | I      |
++--------+-------+-------------+-----------------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> create table Fine(Rollno int(4),Date date,Amount int(10));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> delimiter //
+mysql> create procedure calc_Fine(in r int(10),in b varchar(30))
+    -> begin
+    -> declare doi date;
+    -> declare diff int(3);
+    -> select DateofIssue into doi from Borrower where Rollno=r and NameofBook=b;
+    -> select datediff(curdate(),doi) into diff;
+    -> if diff>=15 and diff<=30 then
+    -> insert into Fine values(r,curdate(),diff*5);
+    -> end if;
+    -> if diff>30 then
+    -> insert into Fine values(r,curdate(),diff*50);
+    -> end if;
+    -> end//
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql> delimiter //
+mysql> create procedure submit(in r int(2))
+    -> begin
+    -> update Borrower set Status='R' where Rollno=r;
+    -> delete from Fine where Rollno=r;
+    -> end//
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> call calc_Fine(14,'Operating System'); //
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from Fine; //
++--------+------------+--------+
+| Rollno | Date       | Amount |
++--------+------------+--------+
+|     14 | 2024-11-06 |  38950 |
++--------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> call calc_Fine(27,'Object Oriented Programming'); //
+Query OK, 1 row affected (0.02 sec)
+
+mysql> call calc_Fine(34,'Microprocessor'); //
+Query OK, 1 row affected (0.00 sec)
+
+mysql> call calc_Fine(48,'Mechanics'); //
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from Fine; //
++--------+------------+--------+
+| Rollno | Date       | Amount |
++--------+------------+--------+
+|     14 | 2024-11-06 |  38950 |
+|     27 | 2024-11-06 |  41800 |
+|     34 | 2024-11-06 |  43900 |
+|     48 | 2024-11-06 |  46600 |
++--------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> //
+ERROR:
+No query specified
+
+mysql> call submit(14); //
+Query OK, 1 row affected (0.02 sec)
+
+mysql> call submit(27); //
+Query OK, 1 row affected (0.02 sec)
+
+mysql> call submit(48); //
+Query OK, 1 row affected (0.02 sec)
+
+mysql> call submit(34); //
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from Fine; //
+Empty set (0.00 sec)
+
+mysql> select * from Borrower; //
++--------+-------+-------------+-----------------------------+--------+
+| Rollno | Name  | DateofIssue | NameofBook                  | Status |
++--------+-------+-------------+-----------------------------+--------+
+|     14 | Ram   | 2022-09-19  | Operating System            | R      |
+|     27 | Soham | 2022-07-24  | Object Oriented Programming | R      |
+|     34 | Mohan | 2022-06-12  | Microprocessor              | R      |
+|     48 | Om    | 2022-04-19  | Mechanics                   | R      |
++--------+-------+-------------+-----------------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql>
+
+

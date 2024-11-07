@@ -1,0 +1,229 @@
+show databases;
+create database employee;
+use employee;
+create table emp_details(emp_no int(10),emp_name varchar(30),emp_gender varchar(1),emp_sal int(30));
+show tables;
+alter table emp_details add emp_dept varchar(20);
+desc emp_details;//DESCRIBE THE TABLE COMPONENTES 
+insert into emp_details values(1,'Ram','M',300000,'designing');
+insert into emp_details values(2,'Soham','M',300000,'designing');
+insert into emp_details values(3,'Mohan','M',250000,'management');
+insert into emp_details values(4,'Om','M',400000,'coding');
+select * from emp_details;
+create table emp_info as select emp_no,emp_name,emp_gender from emp_details;
+//CREATING NEW TABLE FROM PREVIS ONE 
+select * from emp_info;
+truncate table emp_info;//USE TO DELETE THE DATA IN TO THE TABLE
+select * from emp_info;
+drop table emp_info;//DELETE THE TABLE STUCTURE
+select * from emp_info;
+create view emp_view1 as select * from emp_details;
+create view emp_view2 as select * from emp_details where emp_dept="designing";
+//CREATING VIEW OF MAIN TABLE 
+select * from emp_view1;
+select * from emp_view2;
+//SHOW CASEING THE VIEW
+update emp_details set emp_dept="coding" where emp_name="Mohan";
+//UPDATING THE TABLE VALUE WITH WHERE CONDITION 
+select * from emp_details;
+drop view emp_view1;//DELETING THE CREATED VIEW 
+drop view emp_view2;
+create index emp_ind on emp_details(emp_no,emp_name);
+//CREATING THE INDEX FOR TABLE 
+show index from emp_details;
+//SHOW CASING THE DETAILS OF INDEXING 
+
+{CREATE,INSERT,TRUNCATE, UPDATE ,DROP, ALTER, SELECT ,SHOW, }
+{VIEW, INDEX }
+
+
+
+
+
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.39 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| a1                 |
+| ass2               |
+| information_schema |
+| l3                 |
+| mysql              |
+| performance_schema |
+| r1                 |
+| stud               |
+| sys                |
++--------------------+
+9 rows in set (0.01 sec)
+
+mysql> create database employee;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use employee;
+Database changed
+mysql> create table emp_details(emp_no int(10),emp_name varchar(30),emp_gender varchar(1),emp_sal int(30));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| emp_details        |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> desc emp_details;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_no     | int         | YES  |     | NULL    |       |
+| emp_name   | varchar(30) | YES  |     | NULL    |       |
+| emp_gender | varchar(1)  | YES  |     | NULL    |       |
+| emp_sal    | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table emp_details add emp_dept varchar(20);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp_details;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_no     | int         | YES  |     | NULL    |       |
+| emp_name   | varchar(30) | YES  |     | NULL    |       |
+| emp_gender | varchar(1)  | YES  |     | NULL    |       |
+| emp_sal    | int         | YES  |     | NULL    |       |
+| emp_dept   | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into emp_details values(1,'Ram','M',300000,'designing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp_details values(2,'Soham','M',300000,'designing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp_details values(3,'Mohan','M',250000,'management');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp_details values(4,'Om','M',400000,'coding');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp_details;
++--------+----------+------------+---------+------------+
+| emp_no | emp_name | emp_gender | emp_sal | emp_dept   |
++--------+----------+------------+---------+------------+
+|      1 | Ram      | M          |  300000 | designing  |
+|      2 | Soham    | M          |  300000 | designing  |
+|      3 | Mohan    | M          |  250000 | management |
+|      4 | Om       | M          |  400000 | coding     |
++--------+----------+------------+---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> create table emp_info as select emp_no,emp_name,emp_gender from emp_details;
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> decs emp_info;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decs emp_info' at line 1
+mysql> select * from emp_info;
++--------+----------+------------+
+| emp_no | emp_name | emp_gender |
++--------+----------+------------+
+|      1 | Ram      | M          |
+|      2 | Soham    | M          |
+|      3 | Mohan    | M          |
+|      4 | Om       | M          |
++--------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> truncate table emp_info;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from emp_info;
+Empty set (0.00 sec)
+
+mysql> drop table emp_info;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from emp_info;
+ERROR 1146 (42S02): Table 'employee.emp_info' doesn't exist
+mysql> create view emp_view1 as select * from emp_details;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create view emp_view2 as select * from emp_details where emp_dept="designing";
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from emp_view1;
++--------+----------+------------+---------+------------+
+| emp_no | emp_name | emp_gender | emp_sal | emp_dept   |
++--------+----------+------------+---------+------------+
+|      1 | Ram      | M          |  300000 | designing  |
+|      2 | Soham    | M          |  300000 | designing  |
+|      3 | Mohan    | M          |  250000 | management |
+|      4 | Om       | M          |  400000 | coding     |
++--------+----------+------------+---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from emp_view2;
++--------+----------+------------+---------+-----------+
+| emp_no | emp_name | emp_gender | emp_sal | emp_dept  |
++--------+----------+------------+---------+-----------+
+|      1 | Ram      | M          |  300000 | designing |
+|      2 | Soham    | M          |  300000 | designing |
++--------+----------+------------+---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> update emp_details set emp_dept="coding" where emp_name="Mohan";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp_details;
++--------+----------+------------+---------+-----------+
+| emp_no | emp_name | emp_gender | emp_sal | emp_dept  |
++--------+----------+------------+---------+-----------+
+|      1 | Ram      | M          |  300000 | designing |
+|      2 | Soham    | M          |  300000 | designing |
+|      3 | Mohan    | M          |  250000 | coding    |
+|      4 | Om       | M          |  400000 | coding    |
++--------+----------+------------+---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> drop view emp_view1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop view emp_view2;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create index emp_ind on emp_details(emp_no,emp_name);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from emp_details;
++-------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table       | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| emp_details |          1 | emp_ind  |            1 | emp_no      | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| emp_details |          1 | emp_ind  |            2 | emp_name    | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++-------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.01 sec)
+
+mysql> ^C
+mysql>
+
